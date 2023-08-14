@@ -14,11 +14,14 @@ const maxPage = 1;
 const page = 1;
 const searchQuery = "";
 
-// calling creat card function
-createCharacterCard({
-  image: "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
-  name: "Rick Sanchez",
-  status: "Alive",
-  type: "",
-  episode: [],
-});
+async function fetchCharacters() {
+  try {
+    const response = await fetch("https://rickandmortyapi.com/api/character");
+    const { results } = await response.json();
+    results.forEach(createCharacterCard);
+  } catch (error) {
+    console.error("An error occurred while fetching characters:", error);
+  }
+}
+
+fetchCharacters();
